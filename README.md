@@ -1,13 +1,21 @@
 # 28BYJ-48 steppers stuff
 A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*.
 
+![steppers](steppers.jpg)
+
 **WIP**
+
+## SCHEMAS
+
+In the `schemas` folder:
+
+![schematic](schemas/steppers_bb.png)
 
 ## CODE
 
 ### PORTx vs digitalWrite()
 
-To be able to set the four coils simultaneously we can use the [**PORTx registers**](https://web.archive.org/web/20211130201930/https://www.arduino.cc/en/Reference/PortManipulation). Also they are a lot faster (2.6x times!) than the [**digitalWrite()**](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/) counterpart. It's true that the code is more difficult to maintain.
+To be able to set the four coils simultaneously we can use the [**PORTx registers**](https://web.archive.org/web/20211130201930/https://www.arduino.cc/en/Reference/PortManipulation). Also they are a lot faster (2.6x times in my example!) than the [**digitalWrite()**](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/) counterpart. It's true that the code is more difficult to maintain.
 
 Take a look at the `2X-stepper-portx.ino` and `2X-stepper-digitalwrite.ino` Arduino programs for the comparison:
 
@@ -24,9 +32,11 @@ Take a look at the `2X-stepper-portx.ino` and `2X-stepper-digitalwrite.ino` Ardu
 
 ### WAVE vs FULL vs HALF driving models
 
-* **WAVE** to save energy
-* **FULL** for the strongest torque
-* **HALF** for the finest resolution
+There are three ways to drive a **28BYJ-48 stepper motor**. In the `visualize-driving.ino` Arduino program there is a visual demonstration on how the different driving modes operate: steps are executed very slowly as to see which coils are **on** or **off** every time.
+
+* **WAVE**: only one active coil for each step. Good to **save energy**.
+* **FULL**: two active coils at the same time for every step. Good for the **strongest torque**.
+* **HALF**: alternating one or two active coils every step. You get the **finest resolution** (2x).
 
 
 ## 3D models

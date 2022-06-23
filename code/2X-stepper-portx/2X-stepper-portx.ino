@@ -1,7 +1,8 @@
 /*
- * Test 2X stepper motors using direct access via PORTX registers
+ * Test 2X stepper motors using direct access via DDRx,PORTx and PINx registers
  * 
  * https://web.archive.org/web/20211130201930/https://www.arduino.cc/en/Reference/PortManipulation
+ * https://idyl.io/arduino/how-to/manipulate-arduino-ports/  <-- INPUT_PULLUP using DDRx
  * https://web.archive.org/web/20211121130756/https://playground.arduino.cc/Code/BitMath/
  * http://graphics.stanford.edu/~seander/bithacks.html
  * 
@@ -18,7 +19,6 @@ const static char states_sequences_names[][5] = {
   "HALF\0"
 };
 
-// unsigned int delays[] = {500, 500, 500}; // <-- use this to visualize drivers' LEDs
 const static unsigned int delays[] = { 
   2250, // wave 
   2100, // full
@@ -26,13 +26,15 @@ const static unsigned int delays[] = {
 }; 
 
 // step tracking
-// int targetSteps = 32; // <-- use this to visualize drivers' LEDs
 int targetSteps = 2048;
 int currentStep = targetSteps; // to start-over and get status display
 
 // driving mode
 int currentMode = 2; // to start-over and get status display
 unsigned int stepDelay = delays[currentMode];
+
+// timing
+unsigned long timen=0, timef = 0;
 
 
 /*
@@ -64,7 +66,6 @@ void setCoils(uint8_t stateR, uint8_t stateL)
 /*
  *   S E T U P   &   L O O P
  */
-unsigned long timen=0, timef = 0;
 void setup() {
   Serial.begin(115200);
   Serial.println("Stepper motors (ULN2003 + 28BYJ-48) driving using PORTx registers");
@@ -97,6 +98,5 @@ void loop() {
   );
   timen = micros() - timen;   
   if (timen>timef) timef=timen;
-  // delay(stepDelay); // <-- use this to visualize drivers' LEDs
   delayMicroseconds(stepDelay);
 }
