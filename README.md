@@ -5,6 +5,10 @@ A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*,
 
 **WIP**
 
+## THE BIBLE
+
+<p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/B86nqDRskVU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
 ## SCHEMAS
 
 In the `schemas` folder:
