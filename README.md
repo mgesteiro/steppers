@@ -1,13 +1,12 @@
-# 28BYJ-48 steppers stuff
+# 28BYJ-48 steppers stuff (WIP)
 A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*.
 
 ![steppers](steppers.jpg)
 
-**WIP**
+## "THE" BIBLE
+This is, in my opinion, one of the best detailed explanations about the **28BYJ-48 + ULN2003** stepper motor + driver combo, by [Bret Stateham](https://github.com/BretStateham):
 
-## THE BIBLE
-
-<p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/B86nqDRskVU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+[![thebible](thebible.png)](https://youtu.be/B86nqDRskVU)
 
 ## SCHEMAS
 
