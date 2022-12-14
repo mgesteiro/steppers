@@ -8,6 +8,71 @@ This is, in my opinion, one of the best detailed explanations about the **28BYJ-
 
 [![thebible](thebible.png)](https://youtu.be/B86nqDRskVU)
 
+## INFO
+
+28BYJ-48 is an inexpensive unipolar stepper motor with 4 phases and 5 wire connection,
+normally driven using a ULN2003 Darlington transistors array IC.
+
+### Gears
+
+The 28BYJ-48 comes with a reduction gear box. Each gear connects with the following in order:
+
+* Motor shaft: 9 teeth
+* 1st gear: 32/11 teeth (32:9)
+* 2nd gear: 22/9 teeth (22:11)
+* 3rd gear: 26/10 teeth (26:9)
+* Output shaft: 31 teeth (31:10)
+
+  `Ratio = 32/9 * 22/11 * 26/9 * 31/10 = 63,6840  ~ 64:1`
+
+### Stepping
+
+The motor shaft has attached a cylindrical permanent magnet. Surrounding it there
+are two coils in 
+[unipolar configuration](https://en.wikipedia.org/wiki/Stepper_motor#Unipolar_motors)
+ (i.e., with a common middle connection point), which implies 4 different phases.
+
+The same casing metal is used as the electromagnetic core for the coils:
+
+* 32 small metal tabs (or *teeth*)
+* spread evenly across 360° (11,25° separate each two tabs)
+* intermixed and distributed in two layers (1 per coil): 8x8 - 8x8
+
+**Stepping modes:**
+* Wave: one phase each time (4-step sequence)
+* Full: two phases each time (4-step sequence)
+* Half: alternating one and two phases (8-step sequence)
+
+**Additional stepping info:**
+* Internal motor step angle in 4-step sequence: 11.25° (32 steps per revolution)
+* Internal motor step angle in 8-step sequence: 5.625° (64 steps per revolution)
+* Steps per output shaft revolution in 4-step sequence: 32 * 63,6840 = 2037,8864 (~2038)
+* Steps per output shaft revolution in 8-step sequence: 2 * 32 * 63,6840 = 4075,7728 (~4076)
+* Frequency: 100Hz 
+* Idle In-traction Frequency: > 600Hz 
+* Idle Out-traction Frequency: > 1000Hz 
+* In-traction Torque: > 34.3 mN·m (120Hz) 
+* Self-positioning Torque: > 34.3 mN·m 
+* Friction torque: 600-1200 gf.cm 
+* Pull in torque: 300 gf·cm 
+
+### Electrical characteristics
+* Number of Phase: 4
+* Rated voltage: 5V DC (there are 12V versions too)
+* Current: ~165 mA one phase, ~315 mA two, ~450 mA three, ~570 mA all-four
+* DC resistance: 50 Ω ± 7% (25°C)
+* Insulated resistance: > 10 MΩ (500 V) 
+* Insulated electricity power: 600 VAC / 1 mA / 1 s
+* Insulation grade: A
+* Wiring: A (Blue), B (Pink), C (Yellow), D (Orange), E (Red, common Vcc). NOTE: It's
+  well know that some units may come with swaped cables: Pink, Blue, Orange, Yellow & Red.
+
+### Other parameters
+* Rise in Temperature: < 40 K (120Hz)
+* Noise: < 35 dB (120Hz, No load, 10cm)
+* Weight: 30g
+
+
 ## SCHEMAS
 
 In the `schemas` folder:
@@ -37,9 +102,9 @@ Take a look at the `2X-stepper-portx.ino` and `2X-stepper-digitalwrite.ino` Ardu
 
 There are three ways to drive a **28BYJ-48 stepper motor**. In the `visualize-driving.ino` Arduino program there is a visual demonstration on how the different driving modes operate: steps are executed very slowly as to see which coils are **on** or **off** every time.
 
-* **WAVE**: only one active coil for each step. Good to **save energy**.
-* **FULL**: two active coils at the same time for every step. Good for the **strongest torque**.
-* **HALF**: alternating one or two active coils every step. You get the **finest resolution** (2x).
+* **WAVE**: 4-step sequence with only one active coil for each step. Good to **save energy**.
+* **FULL**: 4-step sequence with two active coils at the same time for every step. Good for the **strongest torque**.
+* **HALF**: 8-step sequence with alternating one or two active coils every step. You get the **finest resolution** (2x).
 
 
 ## 3D models
