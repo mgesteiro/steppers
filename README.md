@@ -28,7 +28,7 @@ The 28BYJ-48 comes with a reduction gear box. Each gear connects with the follow
 ### Stepping
 
 The motor shaft has attached a cylindrical permanent magnet. Surrounding it there
-are two coils in 
+are two coils in
 [unipolar configuration](https://en.wikipedia.org/wiki/Stepper_motor#Unipolar_motors)
  (i.e., with a common middle connection point), which implies 4 different phases.
 
@@ -48,20 +48,20 @@ The same casing metal is used as the electromagnetic core for the coils:
 * Internal motor step angle in 8-step sequence: 5.625° (64 steps per revolution)
 * Steps per output shaft revolution in 4-step sequence: 32 * 63,6840 = 2037,8864 (~2038)
 * Steps per output shaft revolution in 8-step sequence: 2 * 32 * 63,6840 = 4075,7728 (~4076)
-* Frequency: 100Hz 
-* Idle In-traction Frequency: > 600Hz 
-* Idle Out-traction Frequency: > 1000Hz 
+* Frequency: 100Hz
+* Idle In-traction Frequency: > 600Hz
+* Idle Out-traction Frequency: > 1000Hz
 * In-traction Torque: > 34.3 mN·m (120Hz) 
-* Self-positioning Torque: > 34.3 mN·m 
-* Friction torque: 600-1200 gf.cm 
-* Pull in torque: 300 gf·cm 
+* Self-positioning Torque: > 34.3 mN·m
+* Friction torque: 600-1200 gf.cm
+* Pull in torque: 300 gf·cm
 
 ### Electrical characteristics
 * Number of Phase: 4
 * Rated voltage: 5V DC (there are 12V versions too)
 * Current: ~165 mA one phase, ~315 mA two, ~450 mA three, ~570 mA all-four
 * DC resistance: 50 Ω ± 7% (25°C)
-* Insulated resistance: > 10 MΩ (500 V) 
+* Insulated resistance: > 10 MΩ (500 V)
 * Insulated electricity power: 600 VAC / 1 mA / 1 s
 * Insulation grade: A
 * Wiring: A (Blue), B (Pink), C (Yellow), D (Orange), E (Red, common Vcc). NOTE: It's
