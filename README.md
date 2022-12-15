@@ -1,12 +1,16 @@
 # 28BYJ-48 steppers stuff (WIP)
-A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*.
+A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*, mainly for my own reference. Feel free to explore the contents of this repository.
 
 ![steppers](steppers.jpg)
 
 ## "THE" BIBLE
-This is, in my opinion, one of the best detailed explanations about the **28BYJ-48 + ULN2003** stepper motor + driver combo, by [Bret Stateham](https://github.com/BretStateham):
+This is, in my opinion, one of the best explanations about the **28BYJ-48 + ULN2003** stepper motor + driver combo, by [Bret Stateham](https://github.com/BretStateham):
 
 [![thebible](thebible.png)](https://youtu.be/B86nqDRskVU)
+
+There is also a very complete web page with very detailed information and explanations 
+about the 28BYJ-48 stepper motor here:
+[https://cookierobotics.com/042/](https://cookierobotics.com/042/)
 
 ## INFO
 
@@ -59,7 +63,8 @@ The same casing metal is used as the electromagnetic core for the coils:
 ### Electrical characteristics
 * Number of Phase: 4
 * Rated voltage: 5V DC (there are 12V versions too)
-* Current: ~165 mA one phase, ~315 mA two, ~450 mA three, ~570 mA all-four
+* Current consumption (measured at the the ULN2003 driver module entry point): ~165 mA one
+  phase powered, ~315 mA two, ~450 mA three, ~570 mA all four
 * DC resistance: 50 Ω ± 7% (25°C)
 * Insulated resistance: > 10 MΩ (500 V)
 * Insulated electricity power: 600 VAC / 1 mA / 1 s
@@ -71,6 +76,9 @@ The same casing metal is used as the electromagnetic core for the coils:
 * Rise in Temperature: < 40 K (120Hz)
 * Noise: < 35 dB (120Hz, No load, 10cm)
 * Weight: 30g
+
+### Datasheets
+Some datasheet documents are available in the `datasheet` folder.
 
 
 ## SCHEMAS
