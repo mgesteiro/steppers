@@ -1,12 +1,12 @@
 # 28BYJ-48 steppers stuff (WIP)
 A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*, mainly for my own reference. Feel free to explore the contents of this repository.
 
-![steppers](steppers.jpg)
+![steppers](media/steppers.jpg)
 
 ## "THE" BIBLE
 This is, in my opinion, one of the best explanations about the **28BYJ-48 + ULN2003** stepper motor + driver combo, by [Bret Stateham](https://github.com/BretStateham):
 
-[![thebible](thebible.png)](https://youtu.be/B86nqDRskVU)
+[![thebible](media/thebible.png)](https://youtu.be/B86nqDRskVU)
 
 There is also a very complete web page with very detailed information and explanations 
 about the 28BYJ-48 stepper motor here:
@@ -113,6 +113,16 @@ There are three ways to drive a **28BYJ-48 stepper motor**. In the `visualize-dr
 * **WAVE**: 4-step sequence with only one active coil for each step. Good to **save energy**.
 * **FULL**: 4-step sequence with two active coils at the same time for every step. Good for the **strongest torque**.
 * **HALF**: 8-step sequence with alternating one or two active coils every step. You get the **finest resolution** (2x).
+
+### FULL ROTATION
+
+In **full drive mode**, the theoretical number of steps to perform a full output shaft rotation is **2037,8864** (not even a integer number!), but in the *practical world*, that number is a little higher (**2048**) as you can see in the test code and the following video:
+
+[![full rotation video](media/full_rotation.jpg)](media/full_rotation.mp4)
+
+This difference may be caused by different factors: manufacturing, gear teeth engagement, missed steps, etc.
+
+The code and the 3D printable models for this test are available in their respective folders in case you want to calibrate your own stepper motors.
 
 
 ## 3D models
