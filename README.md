@@ -91,7 +91,7 @@ In the `schemas` folder:
 
 ### PORTx vs digitalWrite()
 
-To be able to set the four coils simultaneously we can use the [**PORTx registers**](https://web.archive.org/web/20211130201930/https://www.arduino.cc/en/Reference/PortManipulation). Also they are a lot faster (2.6x times in my example!) than the [**digitalWrite()**](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/) counterpart. It's true that the code is more difficult to maintain.
+To be able to set the four coils **simultaneously** we can use the [**PORTx registers**](https://docs.arduino.cc/hacking/software/PortManipulation). Also it is a lot faster (2.6x times in my example!) than the [**digitalWrite()**](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/) counterpart. It's true that the code is more difficult to maintain.
 
 Take a look at the `2X-stepper-portx.ino` and `2X-stepper-digitalwrite.ino` Arduino programs for the comparison:
 
