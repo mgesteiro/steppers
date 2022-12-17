@@ -44,24 +44,25 @@ unsigned long timen=0, timef = 0;
 void initCoilsPins()
 {
 	// PORTB maps to Arduino digital pins 8 to 13. The two high bits (6 & 7) map to the crystal pins and are not usable.
-	DDRB = DDRB | B00001111;  // pins 11,10,9,8 as OUTPUT - Left motor
+	DDRB = DDRB | B00001111;  // pins x,x,x,x,11,10,9,8 as OUTPUT - Right motor
 	// PORTD maps to Arduino digital pins 0 to 7. Pins 0 and 1 are TX and RX, manipulate with care.
-	DDRD = DDRD | B11110000;  // pins 7,6,5,4 as OUTPUT - Right motor
+	DDRD = DDRD | B11110000;  // pins 7,6,5,4,x,x,x,x as OUTPUT - Left motor
+
 }
 
 void setCoils(uint8_t stateR, uint8_t stateL)
 {
-	// PORTD maps to Arduino digital pins 0 to 7
-	// RightMotor - pins 4,5,6,7   -> PORTD bits[7-4] = stateR bits[3-0]
-	// (a & ~mask) | (b & mask)
-	// a -> PIND  b->(stateR << 4)  mask->B11110000
-	PORTD = (PIND & B00001111) | ((stateR << 4) & B11110000);
-
 	// PORTB maps to Arduino digital pins 8 to 13 The two high bits (6 & 7) map to the crystal pins and are not usable
-	// LeftMotor  - pins 8,9,10,11 -> PORTB bits[3-0] = stateL bits[3-0]
+	// RightMotor - pins 11,10,9,8 -> PORTB bits[3-0] = stateR bits[3-0]
 	// (a & ~mask) | (b & mask)
-	// a -> PINB  b->stateL  mask->B00001111
-	PORTB = (PINB & B11110000) | (stateL & B00001111);
+	// a -> PINB  b->stateR  mask->B00001111
+	PORTB = (PORTB & B11110000) | (stateR & B00001111);
+
+	// PORTD maps to Arduino digital pins 0 to 7
+	// LeftMotor - pins 7,6,5,4 -> PORTD bits[7-4] = stateL bits[3-0]
+	// (a & ~mask) | (b & mask)
+	// a -> PIND  b->(stateL << 4)  mask->B11110000
+	PORTD = (PORTD & B00001111) | (stateL << 4); // implicit mask in second part
 }
 
 

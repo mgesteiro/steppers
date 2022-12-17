@@ -19,7 +19,7 @@ void setCoils(uint8_t state)
 	// Motor - pins 4,5,6,7   -> PORTD bits[7-4] = state bits[3-0]
 	// (a & ~mask) | (b & mask)
 	// a -> PIND  b->(state << 4)  mask->B11110000
-	PORTD = (PIND & B00001111) | ((state << 4) & B11110000);
+	PORTD = (PORTD & B00001111) | (state << 4); // implicit mask in the second part
 }
 
 void doSteps(int16_t howmany)
