@@ -1,0 +1,25 @@
+body {
+    max-width: 700px;  
+    margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+img {
+	max-width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+table {
+	margin: 0 auto;
+	text-align: center;
+	border-collapse: collapse;
+}
+th, td {
+	padding: 1px 10px;
+}
+th {
+	border-bottom: 1px solid black;
+}
+figcaption {
+	text-align: center;
+}

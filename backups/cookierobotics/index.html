@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>28BYJ-48</title>
+		<link rel="stylesheet" type="text/css" href="all.css">
+		<style>
+.table-container /* center align horizontally on desktop, show horizontal scrollbar on mobile */
+{
+	display: block;
+	overflow-x: auto;
+}
+code, pre
+{
+	font-family: Consolas, monaco, monospace;
+	tab-size: 4;
+}
+code
+{
+	background-color: rgba(220,220,220,.5);
+}
+th, td {
+	border: 1px solid black;
+}
+th {
+	background-color: lightgray;
+}
+.lightgray {
+	background-color: lightgray;
+}
+		</style>
+	</head>
+	<body>
+<a href="layers.png"><img src="layers.png" /></a>
+<h1>28BYJ-48</h1>
+<p>Stepper motor 28BYJ-48 was disassembled to understand how it works.
+Observations are noted and theory of operation is deduced.
+Motor's reaction to a variety of pulse sequences are also noted.</p>
+
+<h2>External Characteristics</h2>
+
+<p>Dimensions (units in mm):</p>
+
+<img src="drawing.png" />
+<a href="28BYJ-48.step" download><p style="text-align:center">Download STEP File (67KB)</p></a>
+
+<p>Note: CAD model in the link above was reproduced and
+it is not the original data from the manufacturer.</p>
+
+<p>Label at the back:</p>
+<img src="sticker.png" />
+<ul>
+	<li>ROHS: Restriction of Hazardous Substances is a law to restrict the use of hazardous materials like lead and mercury.</li>
+	<li>28BYJ-48: Model name of the stepper motor.</li>
+	<li>5V DC: Rated input voltage. There is also a 12V version with the same model name.</li>
+	<li>90461954: The red number at the bottom is most likely a serial number (lot number) for traceability purposes because I bought a batch and the numbers are all different.</li>
+</ul>
+
+<h2>Internal Structure</h2>
+
+<p>28BYJ-48 is comprised of 3 parts:</p>
+<ul>
+	<li>Gear train</li>
+	<li>Stator</li>
+	<li>Rotor</li>
+</ul>
+
+<p>Cross section view:</p>
+<img src="cross_section.png" />
+
+<p>Exploded view:</p>
+<img src="exploded_view.png" />
+
+<h2>Gear Train</h2>
+<p>The top compartment of 28BYJ-48 contains a series of gears.
+These gears transmit rotation from the rotor to the output shaft.</p>
+
+<a href="gear_train.png"><img src="gear_train.png" /></a>
+
+<p>Gear train consists of 5 rotating parts, including the rotor
+(cylindrical part with black color) and the output shaft (part with gold color).</p>
+
+<a href="gears.png"><img src="gears.png" /></a>
+
+<p>Number of teeth was counted to determine the gear ratio.
+Tip diameter was measured using a caliper to have an idea of
+what gear modules are being used. Units are in mm.</p>
+
+<div class="table-container"><table>
+	<tr>
+		<th>Part</th>
+		<th>Number of Teeth (N)</th>
+		<th>Measured Tip Diameter</th>
+		<th>Speculated Module (m)</th>
+		<th>Speculated Pitch Diameter (d=Nm)</th>
+		<th>Calculated Tip Diameter (d+2m)</th>
+	</tr>
+	<tr>
+		<td class="lightgray">A (rotor)</td>
+		<td>9</td>
+		<td>2.80</td>
+		<td rowspan="2">0.25</td>
+		<td>2.25</td>
+		<td>2.75</td>
+	</tr>
+	<tr>
+		<td class="lightgray" rowspan="2">B</td>
+		<td>32</td>
+		<td>8.25</td>
+		<td>8</td>
+		<td>8.50</td>
+	</tr>
+	<tr>
+		<td>11</td>
+		<td>4.04</td>
+		<td rowspan="2">0.3</td>
+		<td>3.3</td>
+		<td>3.90</td>
+	</tr>
+	<tr>
+		<td class="lightgray" rowspan="2">C</td>
+		<td>22</td>
+		<td>7.47</td>
+		<td>6.6</td>
+		<td>7.20</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>3.60</td>
+		<td rowspan="2">0.3</td>
+		<td>2.7</td>
+		<td>3.30</td>
+	</tr>
+	<tr>
+		<td class="lightgray" rowspan="2">D</td>
+		<td>27</td>
+		<td>9.10</td>
+		<td>8.1</td>
+		<td>8.70</td>
+	</tr>
+	<tr>
+		<td>8</td>
+		<td>3.74</td>
+		<td rowspan="2">0.35</td>
+		<td>2.8</td>
+		<td>3.50</td>
+	</tr>
+	<tr>
+		<td class="lightgray">E (output shaft)</td>
+		<td>24</td>
+		<td>9.16</td>
+		<td>8.4</td>
+		<td>9.10</td>
+	</tr>
+</table></div>
+
+<p>From tooth counts above, gear ratio was found to be 1/64.
+Gear ratio may vary between manufacturers.
+For example, Adafruit sells a model that looks identical but rated at 1/16 gear ratio.</p>
+
+<p>Module values were determined by selecting from a list of common gear module values
+(0.2, 0.25, 0.3, 0.35, 0.4) and then checking if the tip diameter calculated from
+the module is close to the measured tip diameter.
+In addition, different gears were meshed by hand to see which really mesh (only gears
+with the same module mesh).
+</p>
+
+<p>There are odd number of gears so the direction of the rotor's rotation is the same as that of the output shaft.</p>
+
+<h2>Stator</h2>
+
+<p>Stator consists of two coils each sandwitched between two separate metallic plates.
+Therefore, there are 4 plates in total with the bottom-most plate also being the stepper
+motor's outer casing.
+The plates are attracted to magnets.</p>
+
+<a href="plates.png"><img src="plates.png" /></a>
+
+<a href="color_coded.png"><img src="color_coded.png" /></a>
+
+<p>Each plate has 8 claws bent towards the inside of the coil.
+The claws on each plate are offset by quarter pitch each.</p>
+
+<a href="claws.png"><img src="claws.png" /></a>
+
+<p>Five wires come out of the stepper motor.
+These five wires are connected to a circuit board behind the blue plastic cover.
+Note: Wire color ordering may vary between manufacturers.</p>
+
+<a href="circuit.png"><img src="circuit.png" /></a>
+
+<p>The outer two wires (blue and yellow) are connected to the bottom coil (coil farther away from the gear train).
+The inner two wires (pink and orange) are connected to the top coil (coil closer to the gear train).
+The center wire (red) is connected to both coils.
+The image below was taken from the bottom so it is flipped.</p>
+
+<a href="coils.png"><img src="coils.png" /></a>
+
+<p>Each coil is wound such that their axis aligns with the rotor's axis of rotation.
+This is different from common stepper motors where the coils are aligned so that
+their axis points towards and perpendicular to the rotor's axis of rotation.</p>
+
+<a href="coil_diagram.png"><img src="coil_diagram.png" /></a>
+
+<p>Each coil is made of two wires wound the same number of turns.
+Two of the four ends of the wires are connected to the same pin on the circuit board
+such that this point becomes a center position of the entire coil.
+Center positions of the top and bottom coils are then connected together
+on the circuit board and then to the red wire. The simplified diagram above shows
+the connection for only the top coil (coil closer to the gears).</p>
+
+
+<h2>Rotor</h2>
+
+<p>Rotor is a permanent magnet.
+Using a separate magnet, it was found that the rotor has 8 north-south pairs
+alternating around the axis of rotation.</p>
+
+<img src="rotor.png" />
+
+<p>Breaking the rotor reveals that the black material surrounding the white plastic
+is permanent magnet.</p>
+
+<img src="rotor_magnet_removed.png"/>
+
+<h2>How it Works</h2>
+
+<p>Above findings show that 28BYJ-48 is a tin-can stepper motor (also called can-stack motor or
+claw-pole motor).
+The rotor is permanent magnet so it is a permanent magnet (PM) stepper motor.
+Electrical connections reveal it is a unipolar stepper motor.</p>
+
+<img src="magnetic_force.png"/>
+
+<p>Current applied through the coil magnetizes the claws.
+This creates an alternating north and south poles around the rotor.
+Since the rotor also has alternating poles (it is a permanent magnet) and the
+number of poles matches that of the stator,
+the rotor aligns itself with the claws of opposite polarity. 
+Rotor rotation can be maintained by constantly switching the direction of current
+through the two coils.</p>
+
+<img src="simplified_diagram.png"/>
+
+<p>The simplified diagram above shows positioning of the poles relative to each other as seen
+from the center of the motor and facing the inner surface of the stator.
+Moving right is equivalent to a clockwise motion and left for counter-clockwise rotation.
+There are 8 claws per layer so the pitch is 360/8 = 45 degrees.
+For each coil, the top and bottom claws are offset by half a pitch (45/2 = 22.5 degrees).
+The claws of the top and bottom coils are then offset by quater pitch (45/4 = 11.25 degrees).</p>
+
+<img src="simplified_diagram_single_coil.png"/>
+
+<p>If only a single coil is activated, there are 4 ways in which the claws can be magnetized.
+The rotor positions itself to align with the opposite pole.
+The rotor can be rotated consistently in clockwise direction by activating the coils in ADBC order.</p>
+
+<img src="simplified_diagram_two_coils.png"/>
+
+<p>If both coils are activated at the same time, there are again 4 possible ways to magnetize the claws.
+The rotor positions itself between the claw poles.
+The rotor can be rotated consistently in clockwise direction by activating the coils in EFHG order.
+Alternatively, it is also possible to use a combination of the above states, that is, to activate the coils in AEDFBHCG order to rotate the rotor clockwise.</p>
+
+<h2>Driving the Motor</h2>
+
+<p>To verify the mechanism described in the previous section,
+the stepper motor was driven with several signals.</p>
+
+<h3>Equilibrium Positions</h3>
+
+<p>The rotor was twisted by hand while 5V was applied to the coil(s).
+The rotor tries to maintain certain angles.
+These positions were recorded.
+To make it easier to see the rotor angle, a point on the rotor was marked with a black pen.</p>
+
+<a href="equilibrium_positions.png"><img src="equilibrium_positions.png"/></a>
+
+<p>Below is a summary of the above images.
+Corresponding diagram from the previous section is also shown.</p>
+
+<div class="table-container"><table>
+	<tr>
+		<th rowspan="2">Image Row</th>
+		<th rowspan="2">Powered Wire(s)</th>
+		<th colspan="2">Current Direction</th>
+		<th rowspan="2">Diagram</th>
+	</tr>
+	<tr>
+		<th>Top Coil</th>
+		<th>Bottom Coil</th>
+	</tr>
+	<tr>
+		<td class="lightgray">1</td>
+		<td>Yellow</td>
+		<td>-</td>
+		<td>CCW</td>
+		<td>C</td>
+	</tr>
+	<tr>
+		<td class="lightgray">2</td>
+		<td>Yellow, Orange</td>
+		<td>CCW</td>
+		<td>CCW</td>
+		<td>G</td>
+	</tr>
+	<tr>
+		<td class="lightgray">3</td>
+		<td>Orange</td>
+		<td>CCW</td>
+		<td>-</td>
+		<td>A</td>
+	</tr>
+	<tr>
+		<td class="lightgray">4</td>
+		<td>Orange, Blue</td>
+		<td>CCW</td>
+		<td>CW</td>
+		<td>E</td>
+	</tr>
+	<tr>
+		<td class="lightgray">5</td>
+		<td>Blue</td>
+		<td>-</td>
+		<td>CW</td>
+		<td>D</td>
+	</tr>
+	<tr>
+		<td class="lightgray">6</td>
+		<td>Blue, Pink</td>
+		<td>CW</td>
+		<td>CW</td>
+		<td>F</td>
+	</tr>
+	<tr>
+		<td class="lightgray">7</td>
+		<td>Pink</td>
+		<td>CW</td>
+		<td>-</td>
+		<td>B</td>
+	</tr>
+	<tr>
+		<td class="lightgray">8</td>
+		<td>Pink, Yellow</td>
+		<td>CW</td>
+		<td>CCW</td>
+		<td>H</td>
+	</tr>
+</table></div>
+
+<p>The rotor always positioned itself in one of eight angles.
+These eight positions are slightly offset for every combination of current flow through the coils.</p>
+
+<p>I noticed three points while doing the above. First, the motor warms up.
+Second, the current doubles when two coils are active (DC power supply showed 0.14A when one coil was powered
+and 0.27A when two coils were powered).
+Finally, the rotor's resistance to change position was stronger when two coils were active.
+This shows that using two coils produces more torque in exchange for more current draw.</p>
+
+<h3>Wave Drive</h3>
+
+<p>Only one coil is activated at a time.
+The rotor's pole always points towards the stator's pole.</p>
+
+<img src="wave_drive.png"/>
+
+<p>Arduino UNO was connected to a button and ULN2003 module.
+Pressing the button once moves the stepper motor counter-clockwise by a single step.
+The current flows in the order: yellow, pink, blue, orange, and repeat (CBDA).</p>
+
+
+<img src="schematic.png"/>
+
+<p>Code was written in Atmel Studio and compiled with <code>F_CPU=16000000UL</code> symbol defined
+so that <code>_delay_ms()</code> can be used.</p>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #0000ff">#include &lt;avr/io.h&gt;       </span><span style="color: #008000">// For DDRx, DDxn, PORTx, PORTxn, PINx, PINxn.</span>
+<span style="color: #0000ff">#include &lt;avr/sfr_defs.h&gt; </span><span style="color: #008000">// For _BV(), loop_until_bit_is_clear().</span>
+<span style="color: #0000ff">#include &lt;util/delay.h&gt;   </span><span style="color: #008000">// For _delay_ms().</span>
+
+<span style="color: #2b91af">int</span> main(<span style="color: #2b91af">void</span>)
+{
+	<span style="color: #008000">// Configure pin direction.</span>
+	DDRD |= _BV(DDD7);    <span style="color: #008000">// PD7 -&gt; output (Arduino pin 7 - yellow)</span>
+	DDRD |= _BV(DDD6);    <span style="color: #008000">// PD6 -&gt; output (Arduino pin 6 - orange)</span>
+	DDRD |= _BV(DDD5);    <span style="color: #008000">// PD5 -&gt; output (Arduino pin 5 - blue  )</span>
+	DDRD |= _BV(DDD4);    <span style="color: #008000">// PD4 -&gt; output (Arduino pin 4 - pink  )</span>
+	DDRD &amp;= ~(_BV(DDD2)); <span style="color: #008000">// PD2 -&gt; input  (Arduino pin 2 - button)</span>
+	
+	<span style="color: #008000">// Configure input pin pull-ups.</span>
+	PORTD |= _BV(PORTD2); <span style="color: #008000">// PD2 -&gt; enabled</span>
+												<span style="color: #008000">// Button is GND when pressed, else floating.</span>
+	
+	<span style="color: #008000">// Drive output pins low.</span>
+	PORTD &amp;= ~(_BV(PORTD7)); <span style="color: #008000">// PD7 (yellow)</span>
+	PORTD &amp;= ~(_BV(PORTD6)); <span style="color: #008000">// PD6 (orange)</span>
+	PORTD &amp;= ~(_BV(PORTD5)); <span style="color: #008000">// PD5 (blue)</span>
+	PORTD &amp;= ~(_BV(PORTD4)); <span style="color: #008000">// PD4 (pink)</span>
+	
+	<span style="color: #0000ff">while</span> (true)
+	{
+		<span style="color: #008000">// Yellow</span>
+		PORTD &amp;= ~(_BV(PORTD6));              <span style="color: #008000">// Drive PD6 low  (orange)</span>
+		PORTD |= _BV(PORTD7);                 <span style="color: #008000">// Drive PD7 high (yellow)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Pink</span>
+		PORTD &amp;= ~(_BV(PORTD7));              <span style="color: #008000">// Drive PD7 low  (yellow)</span>
+		PORTD |= _BV(PORTD4);                 <span style="color: #008000">// Drive PD4 high (pink)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Blue</span>
+		PORTD &amp;= ~(_BV(PORTD4));              <span style="color: #008000">// Drive PD4 low  (pink)</span>
+		PORTD |= _BV(PORTD5);                 <span style="color: #008000">// Drive PD5 high (blue)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Orange</span>
+		PORTD &amp;= ~(_BV(PORTD5));              <span style="color: #008000">// Drive PD5 low  (blue)</span>
+		PORTD |= _BV(PORTD6);                 <span style="color: #008000">// Drive PD6 high (orange)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+	}
+}
+</pre></div>
+
+
+<p>The rotor made a full rotation in exactly 32 button presses.
+DC power supply displayed a constant 0.16A.
+These show that the rotor makes a full rotation in 32 steps with only a single coil always active.</p>
+
+
+<!--<a href="https://youtu.be/AnHnwB7MwR8">--><a href="28BYJ-48 Rotor Position-AnHnwB7MwR8.mkv"><img src="rotor_positions.png"/></a>
+
+<h3>Full Step Drive</h3>
+
+<p>Two coils are always active at the same time.
+The rotor's poles always point towards midpoint between two adjacent stator poles.
+This is the method used by Arduino's stepper library.</p>
+
+<img src="full_step_drive.png"/>
+
+<p>The same setup as in single coil excitation was used.
+The rotor rotates counter-clockwise by a single step when the button is pressed once.
+The current flows in the order: yellow+orange, yellow+pink, pink+blue, blue+orange, and repeat (GHFE).
+</p>
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #0000ff">#include &lt;avr/io.h&gt;       </span><span style="color: #008000">// For DDRx, DDxn, PORTx, PORTxn, PINx, PINxn.</span>
+<span style="color: #0000ff">#include &lt;avr/sfr_defs.h&gt; </span><span style="color: #008000">// For _BV(), loop_until_bit_is_clear().</span>
+<span style="color: #0000ff">#include &lt;util/delay.h&gt;   </span><span style="color: #008000">// For _delay_ms().</span>
+
+<span style="color: #2b91af">int</span> main(<span style="color: #2b91af">void</span>)
+{
+	<span style="color: #008000">// Configure pin direction.</span>
+	DDRD |= _BV(DDD7);    <span style="color: #008000">// PD7 -&gt; output (Arduino pin 7 - yellow)</span>
+	DDRD |= _BV(DDD6);    <span style="color: #008000">// PD6 -&gt; output (Arduino pin 6 - orange)</span>
+	DDRD |= _BV(DDD5);    <span style="color: #008000">// PD5 -&gt; output (Arduino pin 5 - blue  )</span>
+	DDRD |= _BV(DDD4);    <span style="color: #008000">// PD4 -&gt; output (Arduino pin 4 - pink  )</span>
+	DDRD &amp;= ~(_BV(DDD2)); <span style="color: #008000">// PD2 -&gt; input  (Arduino pin 2 - button)</span>
+	
+	<span style="color: #008000">// Configure input pin pull-ups.</span>
+	PORTD |= _BV(PORTD2); <span style="color: #008000">// PD2 -&gt; enabled</span>
+												<span style="color: #008000">// Button is GND when pressed, else floating.</span>
+	
+	<span style="color: #008000">// Drive output pins low.</span>
+	PORTD &amp;= ~(_BV(PORTD7)); <span style="color: #008000">// PD7 (yellow)</span>
+	PORTD &amp;= ~(_BV(PORTD6)); <span style="color: #008000">// PD6 (orange)</span>
+	PORTD &amp;= ~(_BV(PORTD5)); <span style="color: #008000">// PD5 (blue)</span>
+	PORTD &amp;= ~(_BV(PORTD4)); <span style="color: #008000">// PD4 (pink)</span>
+	
+	<span style="color: #008000">// Drive PD6 high (orange).</span>
+	PORTD |= _BV(PORTD6);
+	
+	<span style="color: #0000ff">while</span> (true)
+	{
+		<span style="color: #008000">// Yellow, Orange</span>
+		PORTD &amp;= ~(_BV(PORTD5));              <span style="color: #008000">// Drive PD5 low  (blue)</span>
+		PORTD |= _BV(PORTD7);                 <span style="color: #008000">// Drive PD7 high (yellow)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Pink, Yellow</span>
+		PORTD &amp;= ~(_BV(PORTD6));              <span style="color: #008000">// Drive PD6 low  (orange)</span>
+		PORTD |= _BV(PORTD4);                 <span style="color: #008000">// Drive PD4 high (pink)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Blue, Pink</span>
+		PORTD &amp;= ~(_BV(PORTD7));              <span style="color: #008000">// Drive PD7 low  (yellow)</span>
+		PORTD |= _BV(PORTD5);                 <span style="color: #008000">// Drive PD5 high (blue)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Orange, Blue</span>
+		PORTD &amp;= ~(_BV(PORTD4));              <span style="color: #008000">// Drive PD4 low  (pink)</span>
+		PORTD |= _BV(PORTD6);                 <span style="color: #008000">// Drive PD6 high (orange)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+	}
+}
+</pre></div>
+
+
+<p>Again, the rotor made a full rotation in exactly 32 button presses.
+The initial position was slightly offset from the initial position of the single coil excitation case as expected.
+DC power supply displayed a constant 0.32A.
+These show that the rotor makes a full rotation in 32 steps with two coils always active.</p>
+
+<h3>Half Step Drive</h3>
+
+<p>Step resolution is doubled by alternating between single-coil excitation and full-step drive.</p>
+
+<img src="half_step_drive.png"/>
+
+<p>The same setup is used again.
+The rotor rotates counter-clockwise by a single step (a single half-step) when the button is pressed once.
+The current flows in the order: CHBFDEAG and repeat.</p>
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #0000ff">#include &lt;avr/io.h&gt;       </span><span style="color: #008000">// For DDRx, DDxn, PORTx, PORTxn, PINx, PINxn.</span>
+<span style="color: #0000ff">#include &lt;avr/sfr_defs.h&gt; </span><span style="color: #008000">// For _BV(), loop_until_bit_is_clear().</span>
+<span style="color: #0000ff">#include &lt;util/delay.h&gt;   </span><span style="color: #008000">// For _delay_ms().</span>
+
+<span style="color: #2b91af">int</span> main(<span style="color: #2b91af">void</span>)
+{
+	<span style="color: #008000">// Configure pin direction.</span>
+	DDRD |= _BV(DDD7);    <span style="color: #008000">// PD7 -&gt; output (Arduino pin 7 - yellow)</span>
+	DDRD |= _BV(DDD6);    <span style="color: #008000">// PD6 -&gt; output (Arduino pin 6 - orange)</span>
+	DDRD |= _BV(DDD5);    <span style="color: #008000">// PD5 -&gt; output (Arduino pin 5 - blue  )</span>
+	DDRD |= _BV(DDD4);    <span style="color: #008000">// PD4 -&gt; output (Arduino pin 4 - pink  )</span>
+	DDRD &amp;= ~(_BV(DDD2)); <span style="color: #008000">// PD2 -&gt; input  (Arduino pin 2 - button)</span>
+	
+	<span style="color: #008000">// Configure input pin pull-ups.</span>
+	PORTD |= _BV(PORTD2); <span style="color: #008000">// PD2 -&gt; enabled</span>
+												<span style="color: #008000">// Button is GND when pressed, else floating.</span>
+	
+	<span style="color: #008000">// Drive output pins low.</span>
+	PORTD &amp;= ~(_BV(PORTD7)); <span style="color: #008000">// PD7 (yellow)</span>
+	PORTD &amp;= ~(_BV(PORTD6)); <span style="color: #008000">// PD6 (orange)</span>
+	PORTD &amp;= ~(_BV(PORTD5)); <span style="color: #008000">// PD5 (blue)</span>
+	PORTD &amp;= ~(_BV(PORTD4)); <span style="color: #008000">// PD4 (pink)</span>
+	
+	<span style="color: #008000">// Drive PD7 high (yellow).</span>
+	PORTD |= _BV(PORTD7);
+	
+	<span style="color: #0000ff">while</span> (true)
+	{
+		<span style="color: #008000">// Yellow</span>
+		PORTD &amp;= ~(_BV(PORTD6));              <span style="color: #008000">// Drive PD6 low  (orange)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Pink, Yellow</span>
+		PORTD |= _BV(PORTD4);                 <span style="color: #008000">// Drive PD4 high (pink)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Pink</span>
+		PORTD &amp;= ~(_BV(PORTD7));              <span style="color: #008000">// Drive PD7 low  (yellow)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Blue, Pink</span>
+		PORTD |= _BV(PORTD5);                 <span style="color: #008000">// Drive PD5 high (blue)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Blue</span>
+		PORTD &amp;= ~(_BV(PORTD4));              <span style="color: #008000">// Drive PD4 low  (pink)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Orange, Blue</span>
+		PORTD |= _BV(PORTD6);                 <span style="color: #008000">// Drive PD6 high (orange)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Orange</span>
+		PORTD &amp;= ~(_BV(PORTD5));              <span style="color: #008000">// Drive PD5 low  (blue)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+		
+		<span style="color: #008000">// Yellow, Orange</span>
+		PORTD |= _BV(PORTD7);                 <span style="color: #008000">// Drive PD7 high (yellow)</span>
+		
+		_delay_ms(200);                       <span style="color: #008000">// Prevent switch bounce.</span>
+		loop_until_bit_is_clear(PIND, PIND2); <span style="color: #008000">// Wait for button down.</span>
+	}
+}
+</pre></div>
+
+<p>The rotor made a full rotation in exactly 64 button presses.
+The current in the DC power supply changed every step between 0.16A and 0.30A.
+These show that the rotor makes a full rotation in 64 steps and either one or both coils are active at a time.</p>
+
+	</body>
+</html>

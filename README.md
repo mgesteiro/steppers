@@ -1,5 +1,5 @@
 # 28BYJ-48 steppers stuff (WIP)
-A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*, mainly for my own reference. Feel free to explore the contents of this repository.
+A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*, mainly for our own knowledge and reference as we use them **a lot** in projects like [**Escornabot Luci**](https://github.com/roboteach-es/escornabot-luci). Feel free to explore the contents of this repository.
 
 ![steppers](media/steppers.jpg)
 
@@ -34,7 +34,7 @@ The 28BYJ-48 comes with a reduction gear box. Each gear connects with the follow
 ### Stepping
 
 The motor shaft has attached a cylindrical permanent magnet (8 pairs of north-south
-poles). Surrounding it there are two coils in
+poles). Surrounding it, there are two coils in
 [unipolar configuration](https://en.wikipedia.org/wiki/Stepper_motor#Unipolar_motors)
 (i.e., with a common middle connection point), which implies 4 different phases.
 
@@ -59,7 +59,7 @@ The same casing metal is used as the electromagnetic core for the coils:
 * Idle Out-traction Frequency: > 1000Hz
 * In-traction Torque: > 34.3 mN·m (120Hz) 
 * Self-positioning Torque: > 34.3 mN·m
-* Friction torque: 600-1200 gf.cm
+* Friction torque: 600-1200 gf·cm
 * Pull in torque: 300 gf·cm
 
 ### Electrical characteristics
@@ -67,12 +67,12 @@ The same casing metal is used as the electromagnetic core for the coils:
 * Rated voltage: 5V DC (there are 12V versions too)
 * Current consumption (measured at the the ULN2003 driver module entry point): ~165 mA one
   phase powered, ~315 mA two, ~450 mA three, ~570 mA all four
-* DC resistance: 50 Ω ± 7% (25°C) per coil
+* DC resistance: 50 Ω ± 7% per coil (25°C)
 * Insulated resistance: > 10 MΩ (500 V)
 * Insulated electricity power: 600 VAC / 1 mA / 1 s
 * Insulation grade: A
 * Wiring: A (Blue), B (Pink), C (Yellow), D (Orange), E (Red, common Vcc). <br />**NOTE:** It's
-  well know that some units may come with swaped cables: Pink, Blue, Orange, Yellow & Red.
+  well know that some units may come with swapped/reversed wiring: Pink, Blue, Orange, Yellow & Red.
 
 ### Other parameters
 * Rise in Temperature: < 40 K (120Hz)
@@ -85,7 +85,7 @@ Some datasheet documents are available in the `datasheet` folder.
 
 ## SCHEMAS
 
-In the `schemas` folder:
+In the `schemas` folder, created with the open-source software [Fritzing](https://fritzing.org):
 
 ![schematic](schemas/steppers_bb.png)
 
@@ -151,7 +151,7 @@ Go take a look at my [Fritzing repository](https://github.com/mgesteiro/fritzing
 * Bret Stateham github: [https://github.com/BretStateham](https://github.com/BretStateham)
 * CookieRobotics info about the 28BYJ-48 stepper motor: [https://cookierobotics.com/042/](https://cookierobotics.com/042/)
 * Unipolar configuration for stepper motors: [https://en.wikipedia.org/wiki/Stepper_motor#Unipolar_motors](https://en.wikipedia.org/wiki/Stepper_motor#Unipolar_motors)
-* **PORTx registers** (a.k.a. PORT manipulation in Arduino: [https://docs.arduino.cc/hacking/software/PortManipulation](https://docs.arduino.cc/hacking/software/PortManipulation)
+* **PORTx registers** (a.k.a. PORT manipulation) in Arduino: [https://docs.arduino.cc/hacking/software/PortManipulation](https://docs.arduino.cc/hacking/software/PortManipulation)
 * **digitalWrite()** in Arduino: [https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/)
 * BitMath Arduino tutorial: [https://playground.arduino.cc/Code/BitMath/](https://playground.arduino.cc/Code/BitMath/)
 * My FreeCAD 3D models repository: [https://github.com/mgesteiro/FreeCAD-models](https://github.com/mgesteiro/FreeCAD-models)
