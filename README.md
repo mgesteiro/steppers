@@ -1,5 +1,5 @@
 # 28BYJ-48 steppers stuff (WIP)
-A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*, mainly for our own knowledge and reference as we use them **a lot** in projects like [**Escornabot Luci**](https://github.com/roboteach-es/escornabot-luci). Feel free to explore the contents of this repository.
+A recopilation of **28BYJ-48** stepper motor + **ULN2003** driver *experiments*, *checks*, *analysis*, *documentation*, *models* and *data*, mainly for our own knowledge and reference as we use them **a lot** in projects like [**Escornabot Luci**](https://github.com/roboteach-es/escornabot-luci). Feel free to explore the contents of this repository, and if you have any sugestion, please, contact us!
 
 ![steppers](media/steppers.jpg)
 
@@ -21,7 +21,11 @@ normally driven using a ULN2003 Darlington transistors array IC.
 
 ### Gears
 
-The 28BYJ-48 comes with a reduction gear box. Each gear connects with the following in order:
+The 28BYJ-48 comes with an integrated reduction gear box, available, at least, in two different configurations (ratios): the most common **64:1** and the not so common **16:1**.
+
+[![cookierobotics/gear_train.png](backups/cookierobotics/gear_train.png)](https://cookierobotics.com/042/)
+
+In the most common version, this is how each gear connects with the following (in order):
 
 * Motor shaft: 9 teeth
 * 1st gear: 32/11 teeth (32:9 ratio with previous)
@@ -37,6 +41,8 @@ The motor shaft has attached a cylindrical permanent magnet (8 pairs of north-so
 poles). Surrounding it, there are two coils in
 [unipolar configuration](https://en.wikipedia.org/wiki/Stepper_motor#Unipolar_motors)
 (i.e., with a common middle connection point), which implies 4 different phases.
+
+[![cookierobotics/claws.png](backups/cookierobotics/claws.png)](https://cookierobotics.com/042/)
 
 The same casing metal is used as the electromagnetic core for the coils:
 
@@ -71,8 +77,7 @@ The same casing metal is used as the electromagnetic core for the coils:
 * Insulated resistance: > 10 MΩ (500 V)
 * Insulated electricity power: 600 VAC / 1 mA / 1 s
 * Insulation grade: A
-* Wiring: A (Blue), B (Pink), C (Yellow), D (Orange), E (Red, common Vcc). <br />**NOTE:** It's
-  well know that some units may come with swapped/reversed wiring: Pink, Blue, Orange, Yellow & Red.
+* Wiring: see the [section bellow](#wiring)
 
 ### Other parameters
 * Rise in Temperature: < 40 K (120Hz)
@@ -82,6 +87,27 @@ The same casing metal is used as the electromagnetic core for the coils:
 ### Datasheets
 Some datasheet documents are available in the `datasheet` folder.
 
+## WIRING
+If we *believe* what the \[*only one I could find all over the Internet*\] [28BYJ-48 Datasheet](datasheet/28BYJ-48-5VDC.pdf) says, the wiring should be:
+
+	A (Pink), B (Blue), C (Orange), D (Yellow) and Common/Vcc (Red)
+
+But, in my own experience, the **most common** order is:
+
+	A (Blue), B (Pink), C (Yellow), D (Orange), Common/Vcc (Red)
+
+In the *real world* I've come to find different combinations, where the wiring order comming out of the stepper itself, and the order at the JST connector in the end, may be any of the following:
+
+<img src="media/28BYJ-48-blue-back.jpg" width="50%"><img src="media/28BYJ-48-blue-front.jpg" width="50%">
+<img src="media/28BYJ-48-pink-back.jpg" width="50%"><img src="media/28BYJ-48-pink-front.jpg" width="50%">
+<img src="media/28BYJ-48-blue-JST.jpg" width="50%"><img src="media/28BYJ-48-pink-JST.jpg" width="50%">
+
+The Red (common/Vcc) wire is always in the same place (middle at the stepper, to the right in the connector), but Blue/Pink and Yellow/Orange may come swapped between them and, depending if they come swapped at both ends or not, you may get different movement (or not).
+
+We've seen really strange/weird *cases*, but usually, in practical terms, the stepper-motors behave in two different ways:
+
+* _**normal**_: i.e., as your code expects (nothing to do)
+* _**swapped**_: motors turn inverted (swapp the Blue/Pink and Yellow/Orange coils/pins, in your code or connections, to solve it)
 
 ## SCHEMAS
 
@@ -124,14 +150,16 @@ In **full drive mode**, the theoretical number of steps to perform a full output
 
 [![full rotation video](media/full_rotation.jpg)](media/full_rotation.mp4)
 
-This difference may be caused by different factors: manufacturing, gear teeth engagement, missed steps, etc. Take into account also that the output shaft has quite a lot of play (4-6°), ought to loose gear teeth engagement.
+This difference may be caused by different factors: manufacturing, missed steps, etc. but mostly due to mechanical tolerances. The motor shaft, and the gearbox have some play, as the teeth engagement in every gear with the next isn't perfect, getting up to 4 to 6° of play in the output shaft.
+
+In the [EscornabotEXT](https://gitlab.com/xoan/escornabot-extlib/-/blob/master/src/EscornabotEXT.cpp#L135) and [Mirobot](https://github.com/mirobot/mirobot-arduino/blob/master/src/Mirobot.cpp#L207)'s code, they deal with this issue with _**anti-slack**_ routines.
 
 The code and the 3D printable models for this test are available in their respective folders in case you want to calibrate your own stepper motors.
 
 
 ## 3D models
 
-The *indicator* and *degrees sphere* models are available in the [`3D` folder](3D). You can also take a look at my [FreeCAD repository](https://github.com/mgesteiro/FreeCAD-models) for these other models:
+The **dial** and the **hand** models are available in the [`3D` folder](3D). You can also take a look at my [FreeCAD repository](https://github.com/mgesteiro/FreeCAD-models) for these other models:
 
 [![28BYJ-48](https://github.com/mgesteiro/FreeCAD-models/blob/master/28BYJ-48/28BYJ-48.png)](https://github.com/mgesteiro/FreeCAD-models/tree/master/28BYJ-48)
 [![ULN2003](https://github.com/mgesteiro/FreeCAD-models/blob/master/ULN2003-driver-board/ULN2003-driver-board.png)](https://github.com/mgesteiro/FreeCAD-models/tree/master/ULN2003-driver-board)
